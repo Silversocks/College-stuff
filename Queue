@@ -1,0 +1,64 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct el{
+    struct el * next;
+    struct el *prev;
+    int x;
+};
+
+typedef struct el el;
+
+int deq(el *tail){}
+
+void enq(int x,el *head,el *tail,int pos){
+    if(head==NULL){
+        head=(el*)malloc(sizeof(el));
+        tail=(el*)malloc(sizeof(el));
+        head->x=x;
+        head->next=tail;
+        head->prev=NULL;
+        tail->next=NULL;
+        tail->prev=head;
+    }
+    else{
+        el *new=(el*)malloc(sizeof(el));
+        new->x=x;
+        el *temp=head;
+        int count=0;
+        while(count<pos-1||temp->next==NULL){
+            count++;
+            temp=temp->next;
+        }
+        el *h=temp->next;
+        new->prev=temp;
+        temp->next=new;
+        new->next=h;
+        temp=new->next;
+        temp->prev=new;
+    }
+}
+
+void display(el *head,el* tail){
+    el* tr=head;
+    while(tr->next!=NULL){
+        printf("%d ",tr->x);
+        tr=tr->next;
+    }
+}
+
+int main(){
+    el*head,*tail;
+    head=NULL;
+    tail=NULL;
+    int c,x,y,pos;
+    while(1){
+        printf("1.Enqueue\n2.Dequeue\n3.Display");
+        scanf("%d",&c);//code works till here
+        switch(c){
+            case 1:scanf("%d,%d",&x,&pos);enq(x,head,tail,pos);break;
+            case 2:y=deq(tail);printf("%d dequeued",y);break;
+            case 3: display(head,tail);break;
+        }
+    }
+}
