@@ -9,7 +9,18 @@ struct el{
 
 typedef struct el el;
 
-int deq(el *tail){}
+int deq(el *head){
+if(head->next==NULL){
+printf("StackEmpty");
+}
+else{
+    el *next=head;
+    int x=head->x;
+    free(head);
+    head=next;
+    head->prev=NULL;
+    return x;
+}}
 
 void enq(int x,el *head,el *tail,int pos){
     if(head==NULL){
@@ -57,7 +68,7 @@ int main(){
         scanf("%d",&c);//code works till here
         switch(c){
             case 1:scanf("%d,%d",&x,&pos);enq(x,head,tail,pos);break;
-            case 2:y=deq(tail);printf("%d dequeued",y);break;
+            case 2:y=deq(head);printf("%d dequeued",y);break;
             case 3: display(head,tail);break;
         }
     }
