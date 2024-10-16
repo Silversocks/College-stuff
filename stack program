@@ -1,0 +1,71 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node{
+    struct node* next;
+    int val;
+};
+
+void insertpos(int val,struct node * top){
+    int pos=100;
+    if(top->next==NULL){
+        top->next=(struct node*)malloc(sizeof(struct node));
+        struct node* new=top->next;
+        new->val=val;
+        new->next=NULL;
+    }
+    else{
+        struct node* curs=top->next;
+        int count=0;
+        while(count<+pos-1&&curs->next!=NULL){
+            count++;
+            curs=curs->next;
+        }
+        struct node * new=(struct node*)malloc(sizeof(struct node));
+        new->next=curs->next;
+        new->val=val;
+        curs->next=new;
+    }
+}
+
+int deletepos(struct node* head){
+    if(head==NULL){
+        printf("Empty");
+    }
+    else {
+        struct node* next=head->next;
+        int r=head->val;
+        free(head);
+        head=next;
+        return r;
+    }
+}
+
+
+void print_list(struct node * head) {
+    struct node * current = head->next;
+
+    while (current != NULL) {
+        printf("%d ", current->val);
+        current = current->next;
+    }
+    printf("\n");
+}
+
+
+
+int main(){
+    struct node* top=NULL;
+    top = (struct node *)malloc(sizeof(struct node));
+    top->next=NULL;
+    
+    while(1){
+    printf("menu:\n1.display\n2.push\n3.Pop\n:");
+    int c,val,pos,x;
+    scanf("%d",&c);
+    switch(c){
+        case 1:print_list(top);break;
+        case 2:printf("What do you want to insert: ");scanf("%d",&val);insertpos(val,top);break;
+        case 3:x=deletepos(top);
+    }}
+}
